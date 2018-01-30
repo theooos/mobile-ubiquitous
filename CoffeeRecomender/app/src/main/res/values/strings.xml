@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CoffeeRecomender</string>
+    <string name="brands" />
+    <string name="find_button">Find coffee</string>
+    <string-array name="strengths">
+        <item>Strong</item>
+        <item>Medium</item>
+        <item>Weak</item>
+    </string-array>
+</resources>
