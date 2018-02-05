@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Tiny Break</string>
+    <string name="title">Tiny Break</string>
+    <string name="team1">Team 1</string>
+    <string name="team2">Team 2</string>
+    <string name="p1_hint">Player 1</string>
+    <string name="p2_hint">Player 2</string>
+    <string name="p3_hint">Player 3</string>
+    <string name="p4_hint">Player 4</string>
+    <string name="play_button">Let\'s Play!</string>
+    <string name="title_activity_scoring">ScoringActivity</string>
+</resources>

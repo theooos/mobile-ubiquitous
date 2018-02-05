@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0a6c03</color>
+    <color name="colorPrimaryDark">#193e0e</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="deepGreen">#0a6c03</color>
+    <color name="titleText">#181F1C</color>
+    <color name="slate">#6c7b8b</color>
+    <color name="space">#424c55</color>
+    <color name="gainsboro">#eadeda</color>
+    <color name="terracotta">#ED6A5A</color>
+</resources>

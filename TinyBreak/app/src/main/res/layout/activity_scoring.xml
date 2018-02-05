@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/slate"
+    tools:context="dev.theodo.red.tinybreak.ScoringActivity">
+
+    <TextView
+        android:id="@+id/team1Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/team1"
+        android:textAllCaps="true"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/p1Name"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/space"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="@string/p1_hint"
+        android:textColor="@color/gainsboro"
+        app:layout_constraintEnd_toStartOf="@+id/p1Score"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/team1Name" />
+
+    <TextView
+        android:id="@+id/p2Name"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:background="@color/space"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="@string/p2_hint"
+        android:textColor="@color/gainsboro"
+        app:layout_constraintEnd_toStartOf="@+id/p2Score"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p1Name" />
+
+    <TextView
+        android:id="@+id/team1Score"
+        android:layout_width="80dp"
+        android:layout_height="64dp"
+        android:background="@color/space"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/gainsboro"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/p2Score"
+        app:layout_constraintTop_toTopOf="@+id/p1Name" />
+
+    <TextView
+        android:id="@+id/p1Score"
+        android:layout_width="60dp"
+        android:layout_height="32dp"
+        android:background="@color/space"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/gainsboro"
+        app:layout_constraintEnd_toStartOf="@+id/team1Score"
+        app:layout_constraintTop_toTopOf="@+id/p1Name" />
+
+    <TextView
+        android:id="@+id/p2Score"
+        android:layout_width="60dp"
+        android:layout_height="32dp"
+        android:background="@color/space"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/gainsboro"
+        app:layout_constraintEnd_toStartOf="@+id/team1Score"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/p2Name"
+        app:layout_constraintTop_toTopOf="@+id/p2Name" />
+
+    <TextView
+        android:id="@+id/team2Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/team2"
+        android:textAllCaps="true"
+        android:textColor="@color/terracotta"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p2Name" />
+
+    <TextView
+        android:id="@+id/player3Name"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/space"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="@string/p3_hint"
+        android:textColor="@color/gainsboro"
+        app:layout_constraintEnd_toStartOf="@+id/player3Score"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/team2Name" />
+
+    <TextView
+        android:id="@+id/player3Score"
+        android:layout_width="60dp"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:background="@color/space"
+        android:text="0"
+        android:textColor="@color/gainsboro"
+        app:layout_constraintEnd_toStartOf="@+id/team2Score"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/player3Name"
+        app:layout_constraintTop_toTopOf="@+id/player3Name" />
+
+    <TextView
+        android:id="@+id/team2Score"
+        android:layout_width="80dp"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:background="@color/space"
+        android:text="0"
+        android:textColor="@color/gainsboro"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/player3Score"
+        app:layout_constraintTop_toTopOf="@+id/player3Score" />
+
+    <TextView
+        android:id="@+id/player4Score"
+        android:layout_width="60dp"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:background="@color/space"
+        android:text="0"
+        android:textColor="@color/gainsboro"
+        app:layout_constraintEnd_toStartOf="@+id/team2Score"
+        app:layout_constraintTop_toTopOf="@+id/player4Name" />
+
+    <TextView
+        android:id="@+id/player4Name"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:background="@color/space"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="@string/p4_hint"
+        android:textColor="@color/gainsboro"
+        app:layout_constraintEnd_toStartOf="@+id/player4Score"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player3Name" />
+
+</android.support.constraint.ConstraintLayout>
