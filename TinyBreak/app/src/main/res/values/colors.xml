@@ -9,4 +9,10 @@
     <color name="space">#424c55</color>
     <color name="gainsboro">#eadeda</color>
     <color name="terracotta">#ED6A5A</color>
+    <color name="yellow">#ffbf00</color>
+    <color name="green">#008000</color>
+    <color name="brown">#8b4513</color>
+    <color name="blue">#0000ff</color>
+    <color name="pink">#ff69b4</color>
+    <color name="black">#1f1f1f</color>
 </resources>

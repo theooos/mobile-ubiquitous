@@ -123,8 +123,8 @@
         android:id="@+id/player3Score"
         android:layout_width="60dp"
         android:layout_height="32dp"
-        android:gravity="center"
         android:background="@color/space"
+        android:gravity="center"
         android:text="0"
         android:textColor="@color/gainsboro"
         app:layout_constraintEnd_toStartOf="@+id/team2Score"
@@ -136,8 +136,8 @@
         android:id="@+id/team2Score"
         android:layout_width="80dp"
         android:layout_height="64dp"
-        android:gravity="center"
         android:background="@color/space"
+        android:gravity="center"
         android:text="0"
         android:textColor="@color/gainsboro"
         android:textSize="30dp"
@@ -150,8 +150,8 @@
         android:id="@+id/player4Score"
         android:layout_width="60dp"
         android:layout_height="32dp"
-        android:gravity="center"
         android:background="@color/space"
+        android:gravity="center"
         android:text="0"
         android:textColor="@color/gainsboro"
         app:layout_constraintEnd_toStartOf="@+id/team2Score"
@@ -169,5 +169,88 @@
         app:layout_constraintEnd_toStartOf="@+id/player4Score"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/player3Name" />
+
+    <Button
+        android:id="@+id/yellow"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/yellow"
+        app:layout_constraintEnd_toStartOf="@+id/brown"
+        app:layout_constraintTop_toTopOf="@+id/brown" />
+
+    <Button
+        android:id="@+id/brown"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/brown"
+        app:layout_constraintEnd_toStartOf="@+id/green"
+        app:layout_constraintTop_toTopOf="@+id/green" />
+
+    <Button
+        android:id="@+id/blue"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/blue"
+        app:layout_constraintStart_toStartOf="@+id/brown"
+        app:layout_constraintTop_toBottomOf="@+id/brown" />
+
+    <Button
+        android:id="@+id/green"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/team2Score" />
+
+    <Button
+        android:id="@+id/pink"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/pink"
+        app:layout_constraintStart_toStartOf="@+id/blue"
+        app:layout_constraintTop_toBottomOf="@+id/blue" />
+
+    <Button
+        android:id="@+id/black"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/pink"
+        app:layout_constraintTop_toBottomOf="@+id/pink" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:text="Button"
+        app:layout_constraintEnd_toStartOf="@+id/blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yellow" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="@+id/button7"
+        app:layout_constraintTop_toBottomOf="@+id/button7" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="@+id/button8"
+        app:layout_constraintTop_toBottomOf="@+id/button8" />
 
 </android.support.constraint.ConstraintLayout>
