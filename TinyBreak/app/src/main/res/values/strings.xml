@@ -9,4 +9,7 @@
     <string name="p4_hint">Player 4</string>
     <string name="play_button">Let\'s Play!</string>
     <string name="title_activity_scoring">ScoringActivity</string>
+    <string name="next_player_button">Next player</string>
+    <string name="foul_button">Foul</string>
+    <string name="end_frame_button">End frame</string>
 </resources>
