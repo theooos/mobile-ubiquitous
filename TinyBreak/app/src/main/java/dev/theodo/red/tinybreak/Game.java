@@ -168,7 +168,7 @@ class Game {
      * When black is potted, or when end frame is pressed.
      */
     void endFrame() {
-
+        
     }
 }
 

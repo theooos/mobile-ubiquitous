@@ -31,26 +31,54 @@ public class ScoringActivity extends AppCompatActivity {
     public void nextPlayer(View view){
         game.nextPlayer();
         updateScores();
+        updatePlayerSelection();
     }
 
     public void foul(View view){
         game.foul();
         updateScores();
+        updatePlayerSelection();
     }
 
     public void endFrame(View view){
         game.endFrame();
     }
 
-    public void updateScores(){
+    private void updateScores(){
         ((TextView) findViewById(R.id.p1Score)).setText(String.valueOf(game.getPlayer1Score()));
         ((TextView) findViewById(R.id.p2Score)).setText(String.valueOf(game.getPlayer2Score()));
         ((TextView) findViewById(R.id.p3Score)).setText(String.valueOf(game.getPlayer3Score()));
         ((TextView) findViewById(R.id.p4Score)).setText(String.valueOf(game.getPlayer4Score()));
         ((TextView) findViewById(R.id.team1Score)).setText(String.valueOf(game.getTeam1Score()));
         ((TextView) findViewById(R.id.team2Score)).setText(String.valueOf(game.getTeam2Score()));
+    }
 
-        // TODO Add the colour change to signify player
+    private void updatePlayerSelection(){
+        switch (game.getCurrentPlayer()){
+            case 1:
+                findViewById(R.id.p1Name).setBackgroundResource(R.drawable.current_player_border);
+                findViewById(R.id.p1Score).setBackgroundResource(R.drawable.current_player_border);
+                findViewById(R.id.p4Name).setBackgroundResource(R.drawable.border);
+                findViewById(R.id.p4Score).setBackgroundResource(R.drawable.border);
+                break;
+            case 2:
+                findViewById(R.id.p2Name).setBackgroundResource(R.drawable.current_player_border);
+                findViewById(R.id.p2Score).setBackgroundResource(R.drawable.current_player_border);
+                findViewById(R.id.p3Name).setBackgroundResource(R.drawable.border);
+                findViewById(R.id.p3Score).setBackgroundResource(R.drawable.border);
+                break;
+            case 3:
+                findViewById(R.id.p3Name).setBackgroundResource(R.drawable.current_player_border);
+                findViewById(R.id.p3Score).setBackgroundResource(R.drawable.current_player_border);
+                findViewById(R.id.p1Name).setBackgroundResource(R.drawable.border);
+                findViewById(R.id.p1Score).setBackgroundResource(R.drawable.border);
+                break;
+            case 4:
+                findViewById(R.id.p4Name).setBackgroundResource(R.drawable.current_player_border);
+                findViewById(R.id.p4Score).setBackgroundResource(R.drawable.current_player_border);
+                findViewById(R.id.p2Name).setBackgroundResource(R.drawable.border);
+                findViewById(R.id.p2Score).setBackgroundResource(R.drawable.border);
+        }
     }
 
     // BALLS
