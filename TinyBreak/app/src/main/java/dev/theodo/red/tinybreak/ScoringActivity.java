@@ -1,5 +1,7 @@
 package dev.theodo.red.tinybreak;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,16 +43,40 @@ public class ScoringActivity extends AppCompatActivity {
     }
 
     public void endFrame(View view){
-        game.endFrame();
+        String best_team = game.getWinningTeam();
+        String best_player = game.getBestPlayers();
+
+        AlertDialog alertDialog = new AlertDialog.Builder(ScoringActivity.this).create();
+        alertDialog.setTitle("Game over!");
+        alertDialog.setMessage(best_team + "\n" + best_player + "\nPlay again?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        game = new Game(game.getPlayer1().getName(), game.getPlayer2().getName(),
+                                game.getPlayer3().getName(), game.getPlayer4().getName());
+                        updateScores();
+                        updatePlayerSelection();
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     private void updateScores(){
-        ((TextView) findViewById(R.id.p1Score)).setText(String.valueOf(game.getPlayer1Score()));
-        ((TextView) findViewById(R.id.p2Score)).setText(String.valueOf(game.getPlayer2Score()));
-        ((TextView) findViewById(R.id.p3Score)).setText(String.valueOf(game.getPlayer3Score()));
-        ((TextView) findViewById(R.id.p4Score)).setText(String.valueOf(game.getPlayer4Score()));
+        ((TextView) findViewById(R.id.p1Score)).setText(String.valueOf(game.getPlayer1().getScore()));
+        ((TextView) findViewById(R.id.p2Score)).setText(String.valueOf(game.getPlayer2().getScore()));
+        ((TextView) findViewById(R.id.p3Score)).setText(String.valueOf(game.getPlayer3().getScore()));
+        ((TextView) findViewById(R.id.p4Score)).setText(String.valueOf(game.getPlayer4().getScore()));
         ((TextView) findViewById(R.id.team1Score)).setText(String.valueOf(game.getTeam1Score()));
         ((TextView) findViewById(R.id.team2Score)).setText(String.valueOf(game.getTeam2Score()));
+
+        if (game.isFinished()) endFrame(null);
     }
 
     private void updatePlayerSelection(){

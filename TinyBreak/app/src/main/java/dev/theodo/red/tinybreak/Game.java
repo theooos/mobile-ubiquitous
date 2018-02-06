@@ -1,5 +1,10 @@
 package dev.theodo.red.tinybreak;
 
+import android.app.AlertDialog;
+import android.support.annotation.NonNull;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
 
 enum Balls {
@@ -27,6 +32,8 @@ class Game {
 
     private int remainingRed = 15;
     private EnumSet<Balls> legalBalls = EnumSet.of(Balls.Red);
+    private String bestPlayers;
+    private boolean finished = false;
 
     Game(String p1, String p2, String p3, String p4) {
         this.p1 = new Player(p1);
@@ -37,26 +44,18 @@ class Game {
 
     void nextPlayer() {
         switch (currentPlayer) {
-            case 1:
-                currentPlayer = 3;
-                break;
-            case 2:
-                currentPlayer = 4;
-                break;
-            case 3:
-                currentPlayer = 2;
-                break;
-            case 4:
-                currentPlayer = 1;
-                break;
+            case 1: currentPlayer = 3; break;
+            case 2: currentPlayer = 4; break;
+            case 3: currentPlayer = 2; break;
+            case 4: currentPlayer = 1;
         }
+
         if (remainingRed < 1 && !showdown) {
             showdown = true;
             legalBalls = EnumSet.of(Balls.Yellow);
         }
-        if (!showdown) {
-            legalBalls = EnumSet.of(Balls.Red);
-        }
+        if (!showdown) legalBalls = EnumSet.of(Balls.Red);
+
         System.out.println("Current player: " + currentPlayer + " | Showdown: " + showdown);
     }
 
@@ -68,20 +67,20 @@ class Game {
         return p3.getScore() + p4.getScore() + team2FoulBonus;
     }
 
-    int getPlayer1Score() {
-        return p1.getScore();
+    Player getPlayer1() {
+        return p1;
     }
 
-    int getPlayer2Score() {
-        return p2.getScore();
+    Player getPlayer2() {
+        return p2;
     }
 
-    int getPlayer3Score() {
-        return p3.getScore();
+    Player getPlayer3() {
+        return p3;
     }
 
-    int getPlayer4Score() {
-        return p4.getScore();
+    Player getPlayer4() {
+        return p4;
     }
 
     int getCurrentPlayer(){
@@ -114,23 +113,14 @@ class Game {
             }
         } else {
             switch (ball) {
-                case Yellow:
-                    legalBalls = EnumSet.of(Balls.Green);
-                    break;
-                case Green:
-                    legalBalls = EnumSet.of(Balls.Brown);
-                    break;
-                case Brown:
-                    legalBalls = EnumSet.of(Balls.Blue);
-                    break;
-                case Blue:
-                    legalBalls = EnumSet.of(Balls.Pink);
-                    break;
-                case Pink:
-                    legalBalls = EnumSet.of(Balls.Black);
-                    break;
+                case Yellow: legalBalls = EnumSet.of(Balls.Green); break;
+                case Green: legalBalls = EnumSet.of(Balls.Brown); break;
+                case Brown: legalBalls = EnumSet.of(Balls.Blue); break;
+                case Blue: legalBalls = EnumSet.of(Balls.Pink); break;
+                case Pink: legalBalls = EnumSet.of(Balls.Black); break;
                 case Black:
-                    endFrame();
+                    legalBalls = EnumSet.noneOf(Balls.class);
+                    finished = true;
             }
         }
 
@@ -139,40 +129,43 @@ class Game {
 
     private void score(int value) {
         switch (currentPlayer) {
-            case 1:
-                p1.addScore(value);
-                break;
-            case 2:
-                p2.addScore(value);
-                break;
-            case 3:
-                p3.addScore(value);
-                break;
-            case 4:
-                p4.addScore(value);
+            case 1: p1.addScore(value); break;
+            case 2: p2.addScore(value); break;
+            case 3: p3.addScore(value); break;
+            case 4: p4.addScore(value);
         }
     }
 
     void foul() {
         switch (currentPlayer % 2) {
-            case 0:
-                team2FoulBonus += 4;
-                break;
-            case 1:
-                team1FoulBonus += 4;
+            case 0: team2FoulBonus += 4; break;
+            case 1: team1FoulBonus += 4;
         }
         nextPlayer();
     }
 
-    /**
-     * When black is potted, or when end frame is pressed.
-     */
-    void endFrame() {
-        
+    String getWinningTeam() {
+        if(getTeam1Score() > getTeam2Score())
+            return "Team 1 wins with " + getTeam1Score() + " points!";
+        else if (getTeam1Score() < getTeam2Score())
+            return "Team 2 wins with " + getTeam2Score() + " points!";
+        else
+            return "It's a tie with " + getTeam1Score() + " points!";
+    }
+
+    String getBestPlayers() {
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(p1); players.add(p2); players.add(p3); players.add(p4);
+        Collections.sort(players);
+        return "" + players.get(0).getName() + " was first with " + players.get(0).getScore() + "!";
+    }
+
+    public boolean isFinished() {
+        return finished;
     }
 }
 
-class Player {
+class Player implements Comparable {
     private String name;
     private int score;
 
@@ -191,5 +184,11 @@ class Player {
 
     void addScore(int n) {
         score += n;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        int rivalScore = ((Player) o).getScore();
+        return rivalScore - score;
     }
 }
