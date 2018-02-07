@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TinyBreak.iml" filepath="$PROJECT_DIR$/TinyBreak.iml" />
+      <module fileurl="file://C:\Users\tjmg\mobile-ubiquitous\TinyBreak\TinyBreak.iml" filepath="C:\Users\tjmg\mobile-ubiquitous\TinyBreak\TinyBreak.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\tjmg\mobile-ubiquitous\TinyBreak\app\app.iml" filepath="C:\Users\tjmg\mobile-ubiquitous\TinyBreak\app\app.iml" />
     </modules>
   </component>
 </project>

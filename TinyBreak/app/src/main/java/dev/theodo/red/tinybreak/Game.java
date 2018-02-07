@@ -32,7 +32,6 @@ class Game {
 
     private int remainingRed = 15;
     private EnumSet<Balls> legalBalls = EnumSet.of(Balls.Red);
-    private String bestPlayers;
     private boolean finished = false;
 
     Game(String p1, String p2, String p3, String p4) {
@@ -160,7 +159,7 @@ class Game {
         return "" + players.get(0).getName() + " was first with " + players.get(0).getScore() + "!";
     }
 
-    public boolean isFinished() {
+    boolean isFinished() {
         return finished;
     }
 }

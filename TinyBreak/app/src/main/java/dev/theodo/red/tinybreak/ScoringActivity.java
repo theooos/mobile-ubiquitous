@@ -31,15 +31,19 @@ public class ScoringActivity extends AppCompatActivity {
     }
 
     public void nextPlayer(View view){
-        game.nextPlayer();
-        updateScores();
-        updatePlayerSelection();
+        if (!game.isFinished()){
+            game.nextPlayer();
+            updateScores();
+            updatePlayerSelection();
+        }
     }
 
     public void foul(View view){
-        game.foul();
-        updateScores();
-        updatePlayerSelection();
+        if (!game.isFinished()) {
+            game.foul();
+            updateScores();
+            updatePlayerSelection();
+        }
     }
 
     public void endFrame(View view){
@@ -110,37 +114,51 @@ public class ScoringActivity extends AppCompatActivity {
     // BALLS
 
     public void red(View view){
-        game.potBall(Balls.Red);
-        updateScores();
+        if (!game.isFinished()) {
+            game.potBall(Balls.Red);
+            updateScores();
+        }
     }
 
     public void yellow(View view){
-        game.potBall(Balls.Yellow);
-        updateScores();
+        if (!game.isFinished()) {
+            game.potBall(Balls.Yellow);
+            updateScores();
+        }
     }
 
     public void green(View view){
-        game.potBall(Balls.Green);
-        updateScores();
+        if (!game.isFinished()) {
+            game.potBall(Balls.Green);
+            updateScores();
+        }
     }
 
     public void brown(View view){
-        game.potBall(Balls.Brown);
-        updateScores();
+        if (!game.isFinished()) {
+            game.potBall(Balls.Brown);
+            updateScores();
+        }
     }
 
     public void blue(View view){
-        game.potBall(Balls.Blue);
-        updateScores();
+        if (!game.isFinished()) {
+            game.potBall(Balls.Blue);
+            updateScores();
+        }
     }
 
     public void pink(View view){
-        game.potBall(Balls.Pink);
-        updateScores();
+        if (!game.isFinished()) {
+            game.potBall(Balls.Pink);
+            updateScores();
+        }
     }
 
     public void black(View view){
-        game.potBall(Balls.Black);
-        updateScores();
+        if (!game.isFinished()) {
+            game.potBall(Balls.Black);
+            updateScores();
+        }
     }
 }
