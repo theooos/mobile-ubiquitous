@@ -1,6 +1,5 @@
 package dev.theodo.red.stopwatch;
 
-import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,15 +12,16 @@ public class StopWatchActivity extends AppCompatActivity {
 
     String SECONDS_KEY = "seconds";
     String RUNNING_KEY = "running";
+    String WAS_RUNNING_KEY = "wasRunning";
 
     int seconds;
     boolean running;
-    boolean wasRunning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop_watch);
+
         if (savedInstanceState != null){
             seconds = savedInstanceState.getInt(SECONDS_KEY);
             running = savedInstanceState.getBoolean(RUNNING_KEY);
@@ -30,33 +30,29 @@ public class StopWatchActivity extends AppCompatActivity {
             seconds = 0;
             running = false;
         }
+
         runTimer();
-
-        // Changing the colour using the XML defined colours.
-//        findViewById(R.id.start_button).setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.startButtonColor));
-
-        // Changing the colour to something previously undefined.
-//        ((Button)findViewById(R.id.stop_button)).getBackground().setColorFilter(0xFFFF6666, PorterDuff.Mode.MULTIPLY);
+        updateButtons();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        running = wasRunning;
+        updateButtons();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        wasRunning = running;
         running = false;
+        updateButtons();
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putBoolean(RUNNING_KEY, running);
         savedInstanceState.putInt(SECONDS_KEY, seconds);
+        savedInstanceState.putBoolean(RUNNING_KEY, running);
     }
 
     public void runTimer(){
@@ -78,17 +74,35 @@ public class StopWatchActivity extends AppCompatActivity {
         });
     }
 
+    private void updateButtons() {
+        Button start = findViewById(R.id.start_button);
+        Button stop = findViewById(R.id.stop_button);
+        start.setEnabled(!running);
+        stop.setEnabled(running);
+
+        if(running){
+            start.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.disabledButtonColour));
+            stop.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.stopButtonColour));
+        } else {
+            start.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.startButtonColour));
+            stop.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.disabledButtonColour));
+        }
+    }
+
     public void startTimer(View view){
         running = true;
-        findViewById(R.id.start_button).setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.disabledButtonColour));
+        updateButtons();
     }
+
 
     public void stopTimer(View view){
         running = false;
+        updateButtons();
     }
 
     public void resetTimer(View view){
-        running = false;
         seconds = 0;
+        running = false;
+        updateButtons();
     }
 }
