@@ -1,0 +1,65 @@
+Your task is to design and build an Android application that will allow a user to find eatery hygiene information using the FSA’s API.
+
+Searching
+
+- Ignore businesses that are labelled as being exempt from having a rating.
+- a one-press ‘local search’ based solely on their current location as identified by their device.
+	- available in initial activity
+	- diplays the 15 establishments closest to the user,
+	- ... ranked by distanced.
+- ‘simple search’ TextView search bar.
+	- available in initial activity
+	- Queries by place (e.g., "Birmingham")
+	- or by business name (e.g., “Dave’s Tasty Cafe”)
+- 'Advanced Search'
+	- Search by business name (TextView input)
+    - By the type of business (as returned by GET BusinessTypes in the API).
+    - By the rating that an establishment has (e.g., only establishments with a 5 rating).
+    - By region and a local authority.
+    	- You should use spinners for this. For instance, a user should be able to select “Scotland” as the region and then “Aberdeen City” as the local authority.
+    	- These should be retrieved using the GET Authorities and GET Regions API calls.
+    - Use location instead of spinners
+    	- control the radius of their search in miles. (Hint - read the API endpoint documentation carefully.)
+- gracefully handling of no results.
+- clear that a search is under way.
+
+
+Presenting
+
+2 ways of presenting this information.
+
+- List of results
+	- all searches should initially be displayed in a list form
+	- sortable by
+		- the hygiene rating 
+		- the date that the rating was awarded
+		- if search based on location, by distance
+	- able to select an establishment for more details, including:
+		- the type of business
+		- its full address
+		- the Authority responsible for rating it
+		- and the contact email address for the authority responsible for rating it.
+		- the location of the establishment on a map.
+- Map
+	- pins for each establishment
+	- When the user clicks the marker, it shows the individual information for that establishment.
+
+The FSA API
+- v2 of the API
+	- x-api-version must be set to 2
+- constrain data requests for speed
+
+The Google Geocoder API
+http://maps.google.com/maps/api/geocode/json?address="Unversity of Birmingham, B15 2TT" (Links to an external site.)Links to an external site.
+
+The Google Maps API
+https://developers.google.com/maps/documentation/android-api/ (Links to an external site.)Links to an external site.
+
+Configuration
+- emulated Nexus 5X
+- API 21 on Android Lollipop with Google Services installed.
+
+Submission
+Please submit a zip or a tar of your source, project and build files. Your zip or tar filename should be in the form yourstudentnumber-muc-ca3.zip (or yourstudentnumber-muc-ca3.tar). The archive should contain a single directory which contains all files.
+
+Make sure that this submission is ready to be opened and built in Android Studio. We should be able to unpack your submission and easily run it to try it out. If we are unable to run your project, then you will be awarded zero marks.
