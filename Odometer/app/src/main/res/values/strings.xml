@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Odometer</string>
+    <string name="loc_req_message">\"This application requires your location for full functionality. Please accept on the following screen.</string>
+</resources>
