@@ -15,7 +15,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int FINE_LOCATION_PERMISSION = 1;
     LocationManager locManager;
@@ -40,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    private double lastLat = 0;
+    private double lastLng = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
         } else {
             attachLocManager();
         }
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapView);
+        mapFragment.getMapAsync(this);
     }
 
     private void requestLocPerms() {
@@ -80,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
     public void attachLocManager(){
         try{
             locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locListener);
-            updateLonLat(locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+            Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            updateLonLat(location);
         } catch (SecurityException e){
             Log.wtf("abc", e.toString());
         }
@@ -99,5 +114,13 @@ public class MainActivity extends AppCompatActivity {
     void updateLonLat(Location location){
         ((TextView) findViewById(R.id.lon_value)).setText(String.format("%.2f", location.getLongitude()));
         ((TextView) findViewById(R.id.lat_value)).setText(String.format("%.2f", location.getLatitude()));
+        lastLat = location.getLatitude();
+        lastLng = location.getLongitude();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(lastLat, lastLng)).title("Your location!"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lastLat, lastLng)));
     }
 }
