@@ -2,18 +2,5 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:actionBarStyle">@style/myTheme.ActionBar</item>
     </style>
-
-    <style name="myTheme.ActionBar" parent="@android:style/Theme.DeviceDefault.NoActionBar">
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:titleTextStyle">@style/myTheme.ActionBar.Text</item>
-        <item name="android:height">@dimen/bar_height</item>
-    </style>
-
-    <style name="myTheme.ActionBar.Text" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <!--<item name="android:textSize">@dimen/app_head</item>-->
-    </style>
-
 </resources>
