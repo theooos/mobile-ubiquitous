@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.MapFragment;
+
 import java.util.ArrayList;
 
 public class ResultsActivity extends AppCompatActivity {
@@ -32,6 +34,7 @@ public class ResultsActivity extends AppCompatActivity {
                 case R.id.navigation_map:
                     // TODO Will cause crash until chosenFragment is set here.
                     presentMap();
+                    chosenFragment = MapFragment.newInstance();
                     mTextMessage.setText("Map");
                     break;
             }
