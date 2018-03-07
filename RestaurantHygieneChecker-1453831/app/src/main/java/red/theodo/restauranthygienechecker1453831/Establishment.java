@@ -3,8 +3,6 @@ package red.theodo.restauranthygienechecker1453831;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Date;
-
 /**
  * Created by theo on 06/03/18.
  */
