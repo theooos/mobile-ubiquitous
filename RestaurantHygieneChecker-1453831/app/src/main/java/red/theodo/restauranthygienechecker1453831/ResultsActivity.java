@@ -63,9 +63,15 @@ public class ResultsActivity extends AppCompatActivity {
     // TODO
     private ArrayList<Establishment> performSearch() {
         ArrayList<Establishment> searchResults = new ArrayList<>();
-        searchResults.add(new Establishment("Roosters", "4"));
-        searchResults.add(new Establishment("Chicken.com", "4"));
-        searchResults.add(new Establishment("Country Girl", "4"));
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Roosters")
+                .withRating("5")
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+            .withName("Dixies")
+            .withRating("4")
+            .build());
+
         return searchResults;
     }
 
