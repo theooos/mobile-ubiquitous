@@ -16,10 +16,7 @@ public class ListFragment extends android.app.ListFragment {
 
     private ArrayList<Establishment> searchResults;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     */
+
     public static ListFragment newInstance(ArrayList<Establishment> searchResults) {
         ListFragment fragment = new ListFragment();
         Bundle args = new Bundle();

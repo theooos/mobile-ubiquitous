@@ -9,7 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
@@ -33,8 +38,7 @@ public class ResultsActivity extends AppCompatActivity {
                     break;
                 case R.id.navigation_map:
                     // TODO Will cause crash until chosenFragment is set here.
-                    presentMap();
-                    chosenFragment = MapFragment.newInstance();
+                    chosenFragment = generateMap();
                     mTextMessage.setText("Map");
                     break;
             }
@@ -59,8 +63,18 @@ public class ResultsActivity extends AppCompatActivity {
     }
 
     // TODO
-    private void presentMap() {
-
+    private MapFragment generateMap() {
+        MapFragment map = MapFragment.newInstance();
+        map.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                LatLng roosters = new LatLng(searchResults.get(0).getLatitude(), searchResults.get(0).getLongitude());
+                MarkerOptions marker = new MarkerOptions().position(roosters).title(searchResults.get(0).getName());
+                googleMap.addMarker(marker);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(roosters));
+            }
+        });
+        return map;
     }
 
     // TODO
@@ -69,7 +83,7 @@ public class ResultsActivity extends AppCompatActivity {
         searchResults.add(EstablishmentBuilder.anEstablishment()
                 .withName("Roosters")
                 .withRating("5")
-                .withLongLat(52.446296, -1.931567)
+                .withLongLat(-1.931567, 52.446296)
                 .withDistance(1.2)
                 .build());
         searchResults.add(EstablishmentBuilder.anEstablishment()
