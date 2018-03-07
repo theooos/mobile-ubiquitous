@@ -86,10 +86,89 @@ public class ResultsActivity extends AppCompatActivity {
                 .withDistance(1.2)
                 .build());
         searchResults.add(EstablishmentBuilder.anEstablishment()
-            .withName("Dixies")
-            .withRating("4")
-            .build());
-
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
+        searchResults.add(EstablishmentBuilder.anEstablishment()
+                .withName("Dixies")
+                .withRating("4")
+                .withLongLat(-1.932011, 52.446237)
+                .withDistance(1.1)
+                .build());
         return searchResults;
     }
 

@@ -49,14 +49,22 @@ public class EstablishmentMapFragment extends MapFragment implements OnMapReadyC
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng roosters = new LatLng(searchResults.get(0).getLatitude(), searchResults.get(0).getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions().position(roosters).title(searchResults.get(0).getName());
+        for(Establishment establishment : searchResults){
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .position(new LatLng(establishment.getLatitude(), establishment.getLongitude()))
+                    .title(searchResults.get(0).getName());
 
-        Marker marker = googleMap.addMarker(markerOptions);
-        marker.setTag(searchResults.get(0));
+            Marker marker = googleMap.addMarker(markerOptions);
+            marker.setTag(establishment);
+        }
 
         googleMap.setOnMarkerClickListener(this);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(roosters));
+        if(searchResults.size() > 0) {
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(
+                    searchResults.get(0).getLatitude(),
+                    searchResults.get(0).getLongitude())));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        }
     }
 
 
