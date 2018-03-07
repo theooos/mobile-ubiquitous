@@ -18,11 +18,11 @@ public class Establishment implements Parcelable {
     private String rating;
     private long ratingDate;
 
-    private float longitude;
-    private float latitude;
-    private float distance;
+    private double longitude;
+    private double latitude;
+    private double distance;
 
-    public Establishment(String name, String businessType, String address, String localAuthorityName, String localAuthorityEmailAddress, String rating, long ratingDate, float longitude, float latitude, float distance) {
+    public Establishment(String name, String businessType, String address, String localAuthorityName, String localAuthorityEmailAddress, String rating, long ratingDate, double longitude, double latitude, double distance) {
         this.name = name;
         this.businessType = businessType;
         this.address = address;
@@ -50,9 +50,9 @@ public class Establishment implements Parcelable {
         localAuthorityEmailAddress = in.readString();
         rating = in.readString();
         ratingDate = in.readLong();
-        longitude = in.readFloat();
-        latitude = in.readFloat();
-        distance = in.readFloat();
+        longitude = in.readDouble();
+        latitude = in.readDouble();
+        distance = in.readDouble();
     }
 
     public static final Creator<Establishment> CREATOR = new Creator<Establishment>() {
@@ -81,8 +81,51 @@ public class Establishment implements Parcelable {
         parcel.writeString(localAuthorityEmailAddress);
         parcel.writeString(rating);
         parcel.writeLong(ratingDate);
-        parcel.writeFloat(longitude);
-        parcel.writeFloat(latitude);
-        parcel.writeFloat(distance);
+        parcel.writeDouble(longitude);
+        parcel.writeDouble(latitude);
+        parcel.writeDouble(distance);
+    }
+
+
+    // **** GETTERS ****
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBusinessType() {
+        return businessType;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getLocalAuthorityName() {
+        return localAuthorityName;
+    }
+
+    public String getLocalAuthorityEmailAddress() {
+        return localAuthorityEmailAddress;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public long getRatingDate() {
+        return ratingDate;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getDistance() {
+        return distance;
     }
 }

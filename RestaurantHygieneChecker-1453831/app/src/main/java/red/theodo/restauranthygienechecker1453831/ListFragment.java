@@ -1,5 +1,6 @@
 package red.theodo.restauranthygienechecker1453831;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -50,5 +51,8 @@ public class ListFragment extends android.app.ListFragment {
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         System.out.println(searchResults.get(position));
+        Intent intent = new Intent(getActivity(), DetailsActivity.class);
+        intent.putExtra(DetailsActivity.ESTABLISHMENT_KEY, searchResults.get(position));
+        startActivity(intent);
     }
 }

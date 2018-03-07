@@ -66,6 +66,8 @@ public class ResultsActivity extends AppCompatActivity {
         searchResults.add(EstablishmentBuilder.anEstablishment()
                 .withName("Roosters")
                 .withRating("5")
+                .withLongLat(52.446296, -1.931567)
+                .withDistance(1.2)
                 .build());
         searchResults.add(EstablishmentBuilder.anEstablishment()
             .withName("Dixies")

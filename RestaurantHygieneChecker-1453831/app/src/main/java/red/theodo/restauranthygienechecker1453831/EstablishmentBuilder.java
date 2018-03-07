@@ -12,9 +12,9 @@ final class EstablishmentBuilder {
     private String localAuthorityEmailAddress = "-1";
     private String rating = "-1";
     private long ratingDate = -1;
-    private float longitude = 0;
-    private float latitude = 0;
-    private float distance = 0;
+    private double longitude = 0;
+    private double latitude = 0;
+    private double distance = 0;
 
     private EstablishmentBuilder() {
     }
@@ -58,17 +58,13 @@ final class EstablishmentBuilder {
         return this;
     }
 
-    public EstablishmentBuilder withLongitude(float longitude) {
+    public EstablishmentBuilder withLongLat(double longitude, double latitude) {
         this.longitude = longitude;
-        return this;
-    }
-
-    public EstablishmentBuilder withLatitude(float latitude) {
         this.latitude = latitude;
         return this;
     }
 
-    public EstablishmentBuilder withDistance(float distance) {
+    public EstablishmentBuilder withDistance(double distance) {
         this.distance = distance;
         return this;
     }
