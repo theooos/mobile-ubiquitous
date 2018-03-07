@@ -1,29 +1,19 @@
 package red.theodo.restauranthygienechecker1453831;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 
-public class ListFragment extends Fragment {
+public class ListFragment extends android.app.ListFragment {
 
     private static final String ARG_PARAM1 = "param1";
 
     private ArrayList<Establishment> searchResults;
-    private ArrayAdapter establishmentsAdpt;
-
-    public ListFragment() {
-        // Required empty public constructor
-    }
 
     /**
      * Use this factory method to create a new instance of
@@ -38,7 +28,7 @@ public class ListFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             searchResults = getArguments().getParcelableArrayList(ARG_PARAM1);
@@ -46,29 +36,36 @@ public class ListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ArrayAdapter establishmentsAdpt;
+        if (searchResults != null) {
+            establishmentsAdpt = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, searchResults);
+        } else {
+            establishmentsAdpt = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, new ArrayList<>());
+        }
+        setListAdapter(establishmentsAdpt);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        establishmentsAdpt = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_selectable_list_item, searchResults);
-        ListView listView = getView().findViewById(R.id.resultsList);
-        listView.setAdapter(establishmentsAdpt);
-
-        final AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Establishment estab = (Establishment) establishmentsAdpt.getItem(i);
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra("establishment", estab);
-                startActivity(intent);
-            }
-        };
-        establishmentsAdpt.notifyDataSetChanged();
+    public void onListItemClick(ListView listView, View view, int position, long id) {
+        System.out.println(searchResults.get(position));
     }
+
+//    @Override
+//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+//
+//        final AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Establishment estab = (Establishment) establishmentsAdpt.getItem(i);
+//                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+//                intent.putExtra("establishment", estab);
+//                startActivity(intent);
+//            }
+//        };
+//        establishmentsAdpt.notifyDataSetChanged();
+//    }
 
 
 //    private OnFragmentInteractionListener mListener;
