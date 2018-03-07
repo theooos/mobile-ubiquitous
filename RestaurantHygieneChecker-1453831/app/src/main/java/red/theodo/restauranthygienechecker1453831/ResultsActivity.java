@@ -37,7 +37,7 @@ public class ResultsActivity extends AppCompatActivity {
                     mTextMessage.setText("List");
                     break;
                 case R.id.navigation_map:
-                    chosenFragment = generateMap();
+                    chosenFragment = EstablishmentMapFragment.newInstance(searchResults);
                     mTextMessage.setText("Map");
                     break;
             }
