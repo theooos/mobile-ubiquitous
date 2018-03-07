@@ -10,15 +10,15 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 
-public class ListFragment extends android.app.ListFragment {
+public class EstablishmentListFragment extends android.app.ListFragment {
 
     private static final String ARG_PARAM1 = "param1";
 
     private ArrayList<Establishment> searchResults;
 
 
-    public static ListFragment newInstance(ArrayList<Establishment> searchResults) {
-        ListFragment fragment = new ListFragment();
+    public static EstablishmentListFragment newInstance(ArrayList<Establishment> searchResults) {
+        EstablishmentListFragment fragment = new EstablishmentListFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(ARG_PARAM1, searchResults);
         fragment.setArguments(args);

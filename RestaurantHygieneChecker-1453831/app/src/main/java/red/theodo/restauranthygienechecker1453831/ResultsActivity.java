@@ -33,11 +33,10 @@ public class ResultsActivity extends AppCompatActivity {
             Fragment chosenFragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_list:
-                    chosenFragment = ListFragment.newInstance(searchResults);
+                    chosenFragment = EstablishmentListFragment.newInstance(searchResults);
                     mTextMessage.setText("List");
                     break;
                 case R.id.navigation_map:
-                    // TODO Will cause crash until chosenFragment is set here.
                     chosenFragment = generateMap();
                     mTextMessage.setText("Map");
                     break;
@@ -55,7 +54,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         searchResults = performSearch();
 
-        ListFragment list = ListFragment.newInstance(searchResults);
+        EstablishmentListFragment list = EstablishmentListFragment.newInstance(searchResults);
         fm.beginTransaction().add(R.id.listMapFragment, list).commit();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
