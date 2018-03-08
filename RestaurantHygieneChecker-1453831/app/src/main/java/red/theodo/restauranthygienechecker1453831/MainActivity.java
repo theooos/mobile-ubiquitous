@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,7 +27,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import red.theodo.restauranthygienechecker1453831.ResponseObjects.SortByOptions;
+import red.theodo.restauranthygienechecker1453831.ResponseObjects.AuthoritiesOption;
+import red.theodo.restauranthygienechecker1453831.ResponseObjects.BusinessTypeOption;
+import red.theodo.restauranthygienechecker1453831.ResponseObjects.RegionsOption;
+import red.theodo.restauranthygienechecker1453831.ResponseObjects.SortByOption;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -87,15 +91,15 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray options = response.getJSONArray("sortOptions");
-                            List<SortByOptions> things = new ArrayList<>();
+                            List<SortByOption> things = new ArrayList<>();
                             for(int i = 0; i < options.length(); i++){
                                 JSONObject option = options.getJSONObject(i);
-                                things.add(new SortByOptions(
+                                things.add(new SortByOption(
                                         option.getString("sortOptionName"),
                                         option.getString("sortOptionKey"),
                                         option.getInt("sortOptionId")));
 
-                                ArrayAdapter<SortByOptions> adapter = new ArrayAdapter<>(
+                                ArrayAdapter<SortByOption> adapter = new ArrayAdapter<>(
                                         getApplicationContext(), android.R.layout.simple_spinner_item, things);
 
                                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -121,16 +125,173 @@ public class MainActivity extends AppCompatActivity {
                 newHeaders.put("x-api-version", "2");
                 return newHeaders;
             }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return super.getParams();
+            }
         };
         requestQueue.add(getRequest);
-        requestQueue.start();
     }
 
     private void populateBusinessTypes() {
+        final String url = "http://api.ratings.food.gov.uk/BusinessTypes";
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray options = response.getJSONArray("businessTypes");
+                            List<BusinessTypeOption> things = new ArrayList<>();
+                            for(int i = 0; i < options.length(); i++){
+                                JSONObject option = options.getJSONObject(i);
+                                things.add(new BusinessTypeOption(
+                                        option.getString("BusinessTypeName"),
+                                        option.getInt("BusinessTypeId")));
 
+                                ArrayAdapter<BusinessTypeOption> adapter = new ArrayAdapter<>(
+                                        getApplicationContext(), android.R.layout.simple_spinner_item, things);
+
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                ((Spinner) findViewById(R.id.spinnerBusinessType)).setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.err.println("Failed to get Business Types");
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> existingHeaders = super.getHeaders();
+                HashMap<String, String> newHeaders = new HashMap<>(existingHeaders);
+                newHeaders.put("x-api-version", "2");
+                return newHeaders;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return super.getParams();
+            }
+        };
+        requestQueue.add(getRequest);
     }
 
     private void populateRegions() {
+        final String url = "http://api.ratings.food.gov.uk/Regions";
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray options = response.getJSONArray("regions");
+                            List<RegionsOption> things = new ArrayList<>();
+                            for(int i = 0; i < options.length(); i++){
+                                JSONObject option = options.getJSONObject(i);
+                                things.add(new RegionsOption(
+                                        option.getString("name"),
+                                        option.getString("nameKey"),
+                                        option.getInt("id")));
 
+                                ArrayAdapter<RegionsOption> adapter = new ArrayAdapter<>(
+                                        getApplicationContext(), android.R.layout.simple_spinner_item, things);
+
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                ((Spinner) findViewById(R.id.spinnerRegion)).setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.err.println("Failed to get Region Types");
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> existingHeaders = super.getHeaders();
+                HashMap<String, String> newHeaders = new HashMap<>(existingHeaders);
+                newHeaders.put("x-api-version", "2");
+                return newHeaders;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return super.getParams();
+            }
+        };
+        requestQueue.add(getRequest);
+
+        ((Spinner) findViewById(R.id.spinnerRegion)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                populateAuthorities(((RegionsOption) adapterView.getSelectedItem()).getNameKey());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void populateAuthorities(final String nameKey){
+        final String url = "http://api.ratings.food.gov.uk/Authorities";
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray options = response.getJSONArray("authorities");
+                            List<AuthoritiesOption> things = new ArrayList<>();
+                            for(int i = 0; i < options.length(); i++){
+                                JSONObject option = options.getJSONObject(i);
+                                if(option.getString("RegionName").equals(nameKey)){
+                                    things.add(new AuthoritiesOption(
+                                            option.getString("Name"),
+                                            option.getInt("LocalAuthorityId")
+                                    ));
+                                }
+
+                                ArrayAdapter<AuthoritiesOption> adapter = new ArrayAdapter<>(
+                                        getApplicationContext(), android.R.layout.simple_spinner_item, things);
+
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                ((Spinner) findViewById(R.id.spinnerLocalAuthority)).setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.err.println("Failed to get Local Authorities Types");
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> existingHeaders = super.getHeaders();
+                HashMap<String, String> newHeaders = new HashMap<>(existingHeaders);
+                newHeaders.put("x-api-version", "2");
+                return newHeaders;
+            }
+        };
+        requestQueue.add(getRequest);
     }
 }
