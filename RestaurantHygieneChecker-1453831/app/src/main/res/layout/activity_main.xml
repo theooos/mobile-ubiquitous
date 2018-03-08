@@ -53,6 +53,7 @@
         android:layout_height="45dp"
         android:background="@color/colorPrimary"
         android:elevation="0dp"
+        android:onClick="toggleRefinements"
         android:padding="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toStartOf="@+id/search_button"
@@ -73,131 +74,34 @@
         app:layout_constraintTop_toTopOf="@+id/search_text"
         app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/advancedContainer"
+    <ToggleButton
+        android:id="@+id/toggleNameLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="ToggleButton"
+        android:textOff="@string/toggleName"
+        android:textOn="@string/toggleLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_text" />
+
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_text">
+        app:layout_constraintTop_toBottomOf="@id/toggleNameLocation">
 
-        <RatingBar
-            android:id="@+id/ratingBar"
-            style="@style/Widget.AppCompat.RatingBar.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/viewRating"
-            app:layout_constraintStart_toEndOf="@+id/viewRating"
-            app:layout_constraintTop_toTopOf="@+id/viewRating" />
+        <include
+            android:id="@+id/advancedContainer"
+            layout="@layout/advanced_settings" />
+    </ScrollView>
 
-        <Spinner
-            android:id="@+id/spinnerBusinessType"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewBusinessType" />
-
-        <TextView
-            android:id="@+id/viewBusinessType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/viewBusinessType"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/viewRating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/viewRating"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerBusinessType" />
-
-        <TextView
-            android:id="@+id/viewRegion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/viewRegion"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewRating" />
-
-        <Spinner
-            android:id="@+id/spinnerRegion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewRegion" />
-
-        <TextView
-            android:id="@+id/viewLocalAuthority"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/viewLocalAuthority"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerRegion" />
-
-        <Spinner
-            android:id="@+id/spinner3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewLocalAuthority" />
-
-        <TextView
-            android:id="@+id/viewRadius"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/viewRadius"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner3" />
-
-        <SeekBar
-            android:id="@+id/seekRadius"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/viewRadius"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/viewRadius"
-            app:layout_constraintTop_toTopOf="@+id/viewRadius" />
-    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
