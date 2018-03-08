@@ -2,20 +2,14 @@ package red.theodo.restauranthygienechecker1453831;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.DragEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -89,8 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (query.length() == 0) {
             localSearch();
-        }
-        else {
+        } else {
             if (advanced)
                 simpleSearch();
             else
@@ -116,11 +109,11 @@ public class MainActivity extends AppCompatActivity {
         Search.search(this, requestQueue, searchDetails);
     }
 
-    private void simpleSearch(){
+    private void simpleSearch() {
 
     }
 
-    private void advancedSearch(){
+    private void advancedSearch() {
 
     }
 
@@ -129,14 +122,14 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         boolean success = false;
-        for(int i = 0; i < permissions.length; i++){
-            if(permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)){
+        for (int i = 0; i < permissions.length; i++) {
+            if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
                 success = (grantResults[i] == PackageManager.PERMISSION_GRANTED);
                 break;
             }
         }
 
-        if(success) {
+        if (success) {
             switch (requestCode) {
                 case 100:
                     localSearch();
@@ -147,14 +140,13 @@ public class MainActivity extends AppCompatActivity {
                 case 102:
                     advancedSearch();
             }
-        }
-        else{
+        } else {
             Toast.makeText(this, "Location permissions required for local search.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void toggleRefinements(View view){
-        if(advanced){
+    public void toggleRefinements(View view) {
+        if (advanced) {
             findViewById(R.id.advancedContainer).setVisibility(ConstraintLayout.GONE);
             advanced = false;
         } else {
@@ -169,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         populateRegions();
     }
 
-    public void populateSortBy(){
+    public void populateSortBy() {
         final String url = "http://api.ratings.food.gov.uk/SortOptions";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -178,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             JSONArray options = response.getJSONArray("sortOptions");
                             List<SortByOption> things = new ArrayList<>();
-                            for(int i = 0; i < options.length(); i++){
+                            for (int i = 0; i < options.length(); i++) {
                                 JSONObject option = options.getJSONObject(i);
                                 things.add(new SortByOption(
                                         option.getString("sortOptionName"),
@@ -224,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             JSONArray options = response.getJSONArray("businessTypes");
                             List<BusinessTypeOption> things = new ArrayList<>();
-                            for(int i = 0; i < options.length(); i++){
+                            for (int i = 0; i < options.length(); i++) {
                                 JSONObject option = options.getJSONObject(i);
                                 things.add(new BusinessTypeOption(
                                         option.getString("BusinessTypeName"),
@@ -269,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             JSONArray options = response.getJSONArray("regions");
                             List<RegionsOption> things = new ArrayList<>();
-                            for(int i = 0; i < options.length(); i++){
+                            for (int i = 0; i < options.length(); i++) {
                                 JSONObject option = options.getJSONObject(i);
                                 things.add(new RegionsOption(
                                         option.getString("name"),
@@ -318,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void populateAuthorities(final String nameKey){
+    private void populateAuthorities(final String nameKey) {
         final String url = "http://api.ratings.food.gov.uk/Authorities";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -327,9 +319,9 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             JSONArray options = response.getJSONArray("authorities");
                             List<AuthoritiesOption> things = new ArrayList<>();
-                            for(int i = 0; i < options.length(); i++){
+                            for (int i = 0; i < options.length(); i++) {
                                 JSONObject option = options.getJSONObject(i);
-                                if(option.getString("RegionName").equals(nameKey)){
+                                if (option.getString("RegionName").equals(nameKey)) {
                                     things.add(new AuthoritiesOption(
                                             option.getString("Name"),
                                             option.getInt("LocalAuthorityId")

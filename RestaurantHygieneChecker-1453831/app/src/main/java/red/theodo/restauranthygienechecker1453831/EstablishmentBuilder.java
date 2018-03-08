@@ -6,7 +6,7 @@ package red.theodo.restauranthygienechecker1453831;
 
 final class EstablishmentBuilder {
     private String name = "-1";
-    private String businessType =  "-1";
+    private String businessType = "-1";
     private String address = "-1";
     private String localAuthorityName = "-1";
     private String localAuthorityEmailAddress = "-1";

@@ -24,7 +24,7 @@ public class EstablishmentMapFragment extends MapFragment implements OnMapReadyC
 
     ArrayList<Establishment> searchResults;
 
-    public static MapFragment newInstance(final ArrayList<Establishment> searchResults){
+    public static MapFragment newInstance(final ArrayList<Establishment> searchResults) {
         EstablishmentMapFragment fragment = new EstablishmentMapFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(ARG_PARAM1, searchResults);
@@ -38,7 +38,7 @@ public class EstablishmentMapFragment extends MapFragment implements OnMapReadyC
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        if(getArguments() != null){
+        if (getArguments() != null) {
             searchResults = getArguments().getParcelableArrayList(ARG_PARAM1);
             getMapAsync(this);
         }
@@ -49,7 +49,7 @@ public class EstablishmentMapFragment extends MapFragment implements OnMapReadyC
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        for(Establishment establishment : searchResults){
+        for (Establishment establishment : searchResults) {
             MarkerOptions markerOptions = new MarkerOptions()
                     .position(new LatLng(establishment.getLatitude(), establishment.getLongitude()))
                     .title(searchResults.get(0).getName());
@@ -59,7 +59,7 @@ public class EstablishmentMapFragment extends MapFragment implements OnMapReadyC
         }
 
         googleMap.setOnMarkerClickListener(this);
-        if(searchResults.size() > 0) {
+        if (searchResults.size() > 0) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(
                     searchResults.get(0).getLatitude(),
                     searchResults.get(0).getLongitude())));

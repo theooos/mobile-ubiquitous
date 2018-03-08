@@ -35,7 +35,7 @@ public class Establishment implements Parcelable {
         this.distance = distance;
     }
 
-    public String toString(){
+    public String toString() {
         return name;
     }
 

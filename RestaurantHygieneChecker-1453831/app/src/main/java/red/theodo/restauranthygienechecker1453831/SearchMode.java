@@ -10,6 +10,12 @@ public enum SearchMode {
     Advanced(102);
 
     private final int id;
-    SearchMode(int id) { this.id = id; }
-    public int getValue() { return id; }
+
+    SearchMode(int id) {
+        this.id = id;
+    }
+
+    public int getValue() {
+        return id;
+    }
 }

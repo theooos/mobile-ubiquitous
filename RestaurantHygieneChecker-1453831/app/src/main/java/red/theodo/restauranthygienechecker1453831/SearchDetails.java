@@ -40,11 +40,11 @@ public class SearchDetails {
         this.pageSize = pageSize;
     }
 
-    public String generateUrl(){
+    public String generateUrl() {
         StringBuilder builder = new StringBuilder();
         builder.append("http://api.ratings.food.gov.uk/Establishments?");
 
-        switch (mode){
+        switch (mode) {
             case Local:
                 builder.append(String.format("longitude=%s&", longitude));
                 builder.append(String.format("latitude=%s&", latitude));
