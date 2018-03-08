@@ -14,7 +14,6 @@ final class EstablishmentBuilder {
     private long ratingDate = -1;
     private double longitude = 0;
     private double latitude = 0;
-    private double distance = 0;
 
     private EstablishmentBuilder() {
     }
@@ -64,12 +63,7 @@ final class EstablishmentBuilder {
         return this;
     }
 
-    public EstablishmentBuilder withDistance(double distance) {
-        this.distance = distance;
-        return this;
-    }
-
     public Establishment build() {
-        return new Establishment(name, businessType, address, localAuthorityName, localAuthorityEmailAddress, rating, ratingDate, longitude, latitude, distance);
+        return new Establishment(name, businessType, address, localAuthorityName, localAuthorityEmailAddress, rating, ratingDate, longitude, latitude);
     }
 }

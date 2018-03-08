@@ -20,9 +20,8 @@ public class Establishment implements Parcelable {
 
     private double longitude;
     private double latitude;
-    private double distance;
 
-    public Establishment(String name, String businessType, String address, String localAuthorityName, String localAuthorityEmailAddress, String rating, long ratingDate, double longitude, double latitude, double distance) {
+    public Establishment(String name, String businessType, String address, String localAuthorityName, String localAuthorityEmailAddress, String rating, long ratingDate, double longitude, double latitude) {
         this.name = name;
         this.businessType = businessType;
         this.address = address;
@@ -32,7 +31,6 @@ public class Establishment implements Parcelable {
         this.ratingDate = ratingDate;
         this.longitude = longitude;
         this.latitude = latitude;
-        this.distance = distance;
     }
 
     public String toString() {
@@ -52,7 +50,6 @@ public class Establishment implements Parcelable {
         ratingDate = in.readLong();
         longitude = in.readDouble();
         latitude = in.readDouble();
-        distance = in.readDouble();
     }
 
     public static final Creator<Establishment> CREATOR = new Creator<Establishment>() {
@@ -83,7 +80,6 @@ public class Establishment implements Parcelable {
         parcel.writeLong(ratingDate);
         parcel.writeDouble(longitude);
         parcel.writeDouble(latitude);
-        parcel.writeDouble(distance);
     }
 
 
@@ -125,7 +121,4 @@ public class Establishment implements Parcelable {
         return latitude;
     }
 
-    public double getDistance() {
-        return distance;
-    }
 }

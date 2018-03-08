@@ -23,7 +23,6 @@ public class DetailsActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.detailsAuthority)).setText(establishment.getLocalAuthorityName());
         ((TextView) findViewById(R.id.detailsAuthorityEmail)).setText(establishment.getLocalAuthorityEmailAddress());
         ((TextView) findViewById(R.id.detailsName)).setText(establishment.getName());
-        ((TextView) findViewById(R.id.detailsDistance)).setText(String.format("%sm", establishment.getDistance()));
         ((TextView) findViewById(R.id.detailsLongLat)).setText(String.format("(%s, %s)", establishment.getLongitude(), establishment.getLatitude()));
     }
 

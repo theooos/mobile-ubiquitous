@@ -18,6 +18,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -46,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean advanced = false;
     private RequestQueue requestQueue;
 
-    private static final int FINE_LOCATION_PERMISSION = 1;
     private LocationManager locManager;
 
     @Override
@@ -81,13 +81,13 @@ public class MainActivity extends AppCompatActivity {
     public void performSearch(View view) {
         String query = ((EditText) findViewById(R.id.search_text)).getText().toString();
 
-        if (query.length() == 0) {
-            localSearch();
+        if (advanced) {
+            advancedSearch();
         } else {
-            if (advanced)
-                simpleSearch();
+            if (query.length() == 0)
+                localSearch();
             else
-                advancedSearch();
+                simpleSearch();
         }
     }
 
@@ -104,17 +104,41 @@ public class MainActivity extends AppCompatActivity {
                 .withLongitude(String.valueOf(location.getLongitude()))
                 .withLatitude(String.valueOf(location.getLatitude()))
                 .withPageSize("15")
+                .withSortOptionKey("distance")
                 .build();
 
         Search.search(this, requestQueue, searchDetails);
     }
 
     private void simpleSearch() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
+            return;
+        }
+        String input = ((TextView) findViewById(R.id.search_text)).getText().toString();
 
+        SearchDetailsBuilder searchBuilder = SearchDetailsBuilder.aSearchDetails()
+                .withMode(SearchMode.Simple);
+
+        boolean byAddress = ((ToggleButton) findViewById(R.id.toggleNameLocation)).isChecked();
+        if(byAddress)
+            searchBuilder = searchBuilder.withAddress(input);
+        else
+            searchBuilder = searchBuilder.withName(input);
+
+        SearchDetails searchDetails = searchBuilder
+                .withSortOptionKey("Rating")
+                .withPageSize("50")
+                .build();
+
+        Search.search(this, requestQueue, searchDetails);
     }
 
     private void advancedSearch() {
-
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 102);
+            return;
+        }
     }
 
     @Override

@@ -30,6 +30,7 @@ class Search {
 
     static void search(final Context context, RequestQueue requestQueue, SearchDetails searchDetails) {
         final String url = searchDetails.generateUrl();
+        System.out.println(url);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -39,37 +40,45 @@ class Search {
                             ArrayList<Establishment> things = new ArrayList<>();
                             for (int i = 0; i < options.length(); i++) {
                                 JSONObject option = options.getJSONObject(i);
-                                JSONObject lonlat = option.getJSONObject("geocode");
+
+                                EstablishmentBuilder establishmentBuilder = EstablishmentBuilder.anEstablishment()
+                                        .withName(option.getString("BusinessName"))
+                                        .withBusinessType(option.getString("BusinessType"))
+                                        .withLocalAuthorityName(option.getString("LocalAuthorityName"))
+                                        .withLocalAuthorityEmailAddress(option.getString("LocalAuthorityEmailAddress"))
+                                        .withRating(option.getString("RatingValue"));
 
                                 StringBuilder address = new StringBuilder();
                                 for (int j = 1; j < 5; j++) {
                                     String line = option.getString("AddressLine" + j);
-                                    if (line.length() > 0)
+                                    if (line.length() > 0) {
                                         address.append(line).append("\n");
+                                    }
                                 }
                                 address.append(option.getString("PostCode"));
 
-                                DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-                                Date date = new Date(0);
-                                try {
-                                    date = format.parse(option.getString("RatingDate").split("T")[0]);
-                                } catch (ParseException e) {
-                                    System.err.println("Failed to parse time");
-                                    e.printStackTrace();
+                                establishmentBuilder = establishmentBuilder.withAddress(address.toString());
+
+                                if(!option.isNull("RatingDate")){
+                                    DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+                                    Date date = new Date(0);
+                                    try {
+                                        date = format.parse(option.getString("RatingDate").split("T")[0]);
+                                    } catch (ParseException e) {
+                                        System.err.println("Failed to parse time");
+                                        e.printStackTrace();
+                                    }
+                                    establishmentBuilder = establishmentBuilder
+                                            .withRatingDate(date.getTime());
                                 }
 
-                                things.add(EstablishmentBuilder.anEstablishment()
-                                        .withName(option.getString("BusinessName"))
-                                        .withBusinessType(option.getString("BusinessType"))
-                                        .withAddress(address.toString())
-                                        .withDistance(option.getDouble("Distance"))
-                                        .withLongLat(lonlat.getDouble("longitude"), lonlat.getDouble("latitude"))
-                                        .withLocalAuthorityName(option.getString("LocalAuthorityName"))
-                                        .withLocalAuthorityEmailAddress(option.getString("LocalAuthorityEmailAddress"))
-                                        .withRating(option.getString("RatingValue"))
-                                        .withRatingDate(date.getTime())
-                                        .build());
+                                JSONObject lonlat = option.getJSONObject("geocode");
+                                if(!lonlat.isNull("longitude") && !lonlat.isNull("latitude")){
+                                    establishmentBuilder = establishmentBuilder
+                                            .withLongLat(lonlat.getDouble("longitude"), lonlat.getDouble("latitude"));
+                                }
 
+                                things.add(establishmentBuilder.build());
                             }
 
                             Intent intent = new Intent(context, ResultsActivity.class);
@@ -85,7 +94,7 @@ class Search {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.err.println("Failed to get SortBy");
+                        System.err.println("Failed to get Establishments");
                         error.printStackTrace();
                     }
                 }) {

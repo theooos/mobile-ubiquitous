@@ -49,6 +49,14 @@ public class SearchDetails {
                 builder.append(String.format("longitude=%s&", longitude));
                 builder.append(String.format("latitude=%s&", latitude));
                 builder.append(String.format("pageSize=%s&", pageSize));
+
+            case Simple:
+                if (address == null)
+                    builder.append(String.format("name=%s&", name));
+                else
+                    builder.append(String.format("address=%s&", address));
+                builder.append(String.format("sortOptionKey=%s&", sortOptionKey));
+                builder.append(String.format("pageSize=%s&", pageSize));
         }
 
         return builder.toString();

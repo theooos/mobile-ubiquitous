@@ -83,7 +83,7 @@
         android:layout_marginTop="8dp"
         android:text="ToggleButton"
         android:textOff="@string/toggleName"
-        android:textOn="@string/toggleLocation"
+        android:textOn="@string/toggleAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_text" />
