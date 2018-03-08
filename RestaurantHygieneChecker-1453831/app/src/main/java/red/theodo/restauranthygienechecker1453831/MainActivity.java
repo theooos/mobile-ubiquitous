@@ -13,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -111,14 +113,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void simpleSearch() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
-            return;
-        }
         String input = ((TextView) findViewById(R.id.search_text)).getText().toString();
 
         SearchDetailsBuilder searchBuilder = SearchDetailsBuilder.aSearchDetails()
-                .withMode(SearchMode.Simple);
+                .withMode(SearchMode.Simple)
+                .withSortOptionKey("Rating")
+                .withPageSize("50");
 
         boolean byAddress = ((ToggleButton) findViewById(R.id.toggleNameLocation)).isChecked();
         if(byAddress)
@@ -126,12 +126,7 @@ public class MainActivity extends AppCompatActivity {
         else
             searchBuilder = searchBuilder.withName(input);
 
-        SearchDetails searchDetails = searchBuilder
-                .withSortOptionKey("Rating")
-                .withPageSize("50")
-                .build();
-
-        Search.search(this, requestQueue, searchDetails);
+        Search.search(this, requestQueue, searchBuilder.build());
     }
 
     private void advancedSearch() {
@@ -139,6 +134,57 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 102);
             return;
         }
+        String input = ((TextView) findViewById(R.id.search_text)).getText().toString();
+
+        SearchDetailsBuilder searchBuilder = SearchDetailsBuilder.aSearchDetails()
+                .withMode(SearchMode.Advanced)
+                .withSortOptionKey("Rating");
+
+        boolean byLocation = (input.length() == 0);
+        if (byLocation){
+            Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            searchBuilder = searchBuilder
+                    .withLatitude(String.valueOf(location.getLatitude()))
+                    .withLongitude(String.valueOf(location.getLongitude()));
+        }
+        else {
+            boolean byAddress = ((ToggleButton) findViewById(R.id.toggleNameLocation)).isChecked();
+            if(byAddress)
+                searchBuilder = searchBuilder.withAddress(input);
+            else
+                searchBuilder = searchBuilder.withName(input);
+        }
+
+
+        if(((CheckBox) findViewById(R.id.checkSortBy)).isChecked()){
+            SortByOption option = (SortByOption) ((Spinner) findViewById(R.id.spinnerSortBy)).getSelectedItem();
+            searchBuilder = searchBuilder.withSortOptionKey(option.getKey());
+        }
+
+        if(((CheckBox) findViewById(R.id.checkBusinessType)).isChecked()){
+            BusinessTypeOption option = (BusinessTypeOption) ((Spinner) findViewById(R.id.spinnerBusinessType)).getSelectedItem();
+            searchBuilder = searchBuilder.withBusinessTypeId(String.valueOf(option.getId()));
+        }
+
+        if(((CheckBox) findViewById(R.id.checkRating)).isChecked()){
+            RatingBar option = findViewById(R.id.ratingBar);
+            searchBuilder = searchBuilder.withRatingKey(String.valueOf((int) option.getRating()));
+        }
+
+        if(((CheckBox) findViewById(R.id.checkRegion)).isChecked()){
+            AuthoritiesOption option = (AuthoritiesOption) ((Spinner) findViewById(R.id.spinnerLocalAuthority)).getSelectedItem();
+            searchBuilder = searchBuilder.withLocalAuthorityId(String.valueOf(option.getId()));
+        }
+
+        if(((CheckBox) findViewById(R.id.checkRadius)).isChecked()){
+            searchBuilder = searchBuilder.withMaxDistanceLimit(String.valueOf(((SeekBar) findViewById(R.id.seekRadius)).getProgress()));
+        }
+
+        SearchDetails searchDetails = searchBuilder
+                .withPageSize("50")
+                .build();
+
+        Search.search(this, requestQueue, searchDetails);
     }
 
     @Override

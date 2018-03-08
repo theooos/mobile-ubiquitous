@@ -49,6 +49,7 @@ public class SearchDetails {
                 builder.append(String.format("longitude=%s&", longitude));
                 builder.append(String.format("latitude=%s&", latitude));
                 builder.append(String.format("pageSize=%s&", pageSize));
+                break;
 
             case Simple:
                 if (address == null)
@@ -57,6 +58,31 @@ public class SearchDetails {
                     builder.append(String.format("address=%s&", address));
                 builder.append(String.format("sortOptionKey=%s&", sortOptionKey));
                 builder.append(String.format("pageSize=%s&", pageSize));
+                break;
+
+            case Advanced:
+                if (longitude != null){
+                    builder.append(String.format("longitude=%s&", longitude));
+                    builder.append(String.format("latitude=%s&", latitude));
+                    if(maxDistanceLimit != null)
+                        builder.append(String.format("maxDistanceLimit=%s&", maxDistanceLimit));
+                } else {
+                    if (address == null)
+                        builder.append(String.format("name=%s&", name));
+                    else
+                        builder.append(String.format("address=%s&", address));
+                }
+
+                if(sortOptionKey != null)
+                    builder.append(String.format("sortOptionKey=%s&", sortOptionKey));
+                if(pageSize != null)
+                    builder.append(String.format("pageSize=%s&", pageSize));
+                if(businessTypeId != null)
+                    builder.append(String.format("businessTypeId=%s&", businessTypeId));
+                if (ratingKey != null)
+                    builder.append(String.format("ratingKey=%s&", ratingKey));
+                if(localAuthorityId != null)
+                    builder.append(String.format("localAuthorityId=%s&", localAuthorityId));
         }
 
         return builder.toString();
