@@ -49,6 +49,7 @@ public class SearchDetails {
                 builder.append(String.format("longitude=%s&", longitude));
                 builder.append(String.format("latitude=%s&", latitude));
                 builder.append(String.format("pageSize=%s&", pageSize));
+                builder.append(String.format("sortOptionKey=%s&", sortOptionKey));
                 break;
 
             case Simple:

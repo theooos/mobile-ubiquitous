@@ -33,7 +33,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         ((TextView) findViewById(R.id.detailsName)).setText(establishment.getName());
         ((TextView) findViewById(R.id.detailsLongLat)).setText(String.format("(%s, %s)", establishment.getLongitude(), establishment.getLatitude()));
 
-        ((MapView) findViewById(R.id.detailsMapView)).getMapAsync(this);
+        MapView mapView = (MapView) findViewById(R.id.detailsMapView);
+        mapView.onCreate(savedInstanceState);
+
+        mapView.getMapAsync(this);
     }
 
 
