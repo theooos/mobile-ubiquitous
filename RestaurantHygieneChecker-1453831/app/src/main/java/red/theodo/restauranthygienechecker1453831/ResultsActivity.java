@@ -22,7 +22,6 @@ public class ResultsActivity extends AppCompatActivity {
 
     public static String RESULTS_STRING = "search";
 
-    private TextView mTextMessage;
     FragmentManager fm = getFragmentManager();
 
     private ArrayList<Establishment> searchResults;
@@ -36,15 +35,13 @@ public class ResultsActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_list:
                     chosenFragment = EstablishmentListFragment.newInstance(searchResults);
-                    mTextMessage.setText("List");
                     break;
                 case R.id.navigation_map:
                     chosenFragment = EstablishmentMapFragment.newInstance(searchResults);
-                    mTextMessage.setText("Map");
                     break;
             }
             fm.beginTransaction().replace(R.id.listMapFragment, chosenFragment).commit();
-            return false;
+            return true;
         }
     };
 
@@ -52,7 +49,6 @@ public class ResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        mTextMessage = (TextView) findViewById(R.id.message);
 
         searchResults = getIntent().getParcelableArrayListExtra(RESULTS_STRING);
 

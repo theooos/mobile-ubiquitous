@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title_text" />
 
     <EditText
-        android:id="@+id/search_text"
+        android:id="@+id/textQuery"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="32dp"
@@ -57,7 +57,7 @@
         android:padding="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toStartOf="@+id/search_button"
-        app:layout_constraintTop_toTopOf="@+id/search_text"
+        app:layout_constraintTop_toTopOf="@+id/textQuery"
         app:srcCompat="@drawable/ic_settings_black_24dp" />
 
     <ImageButton
@@ -71,7 +71,7 @@
         android:padding="6dp"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/search_text"
+        app:layout_constraintTop_toTopOf="@+id/textQuery"
         app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
 
     <ToggleButton
@@ -86,7 +86,7 @@
         android:textOn="@string/toggleAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_text" />
+        app:layout_constraintTop_toBottomOf="@id/textQuery" />
 
     <ScrollView
         android:layout_width="0dp"

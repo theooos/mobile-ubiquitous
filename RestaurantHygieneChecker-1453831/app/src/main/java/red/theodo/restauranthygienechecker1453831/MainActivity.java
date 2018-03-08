@@ -10,10 +10,12 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
@@ -60,10 +62,60 @@ public class MainActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         findViewById(R.id.advancedContainer).setVisibility(ConstraintLayout.GONE);
+
+        addAdvancedListeners();
+        populateSpinners();
+    }
+
+    private void addAdvancedListeners() {
+        // To force no distance parameter if location is not being used.
+        ((TextView) findViewById(R.id.textQuery)).setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                CheckBox radius = findViewById(R.id.checkRadius);
+                if(textView.getText().length() == 0){
+                    radius.setEnabled(true);
+                }
+                else {
+                    radius.setChecked(false);
+                    radius.setEnabled(false);
+                }
+
+                return false;
+            }
+        });
+
+        // To force a name search if a region is being used.
+        ((CheckBox) findViewById(R.id.checkRegion)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b)
+                    ((ToggleButton) findViewById(R.id.toggleNameLocation)).setChecked(false);
+            }
+        });
+
+        // To force non-region if an address search is happening.
+        ((ToggleButton) findViewById(R.id.toggleNameLocation)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b)
+                    ((CheckBox) findViewById(R.id.checkRegion)).setChecked(false);
+            }
+        });
+
+        // To check the box if a star is selected.
+        ((RatingBar) findViewById(R.id.ratingBar)).setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                ((CheckBox) findViewById(R.id.checkRating)).setChecked(true);
+            }
+        });
+
+        // To update the mile counter
         ((SeekBar) findViewById(R.id.seekRadius)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                ((TextView) findViewById(R.id.viewRadiusCount)).setText(String.format("%s", i));
+                ((TextView) findViewById(R.id.viewRadiusCount)).setText(String.valueOf(i));
             }
 
             @Override
@@ -77,11 +129,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        populateSpinners();
     }
 
     public void performSearch(View view) {
-        String query = ((EditText) findViewById(R.id.search_text)).getText().toString();
+        String query = ((EditText) findViewById(R.id.textQuery)).getText().toString();
 
         if (advanced) {
             advancedSearch();
@@ -113,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void simpleSearch() {
-        String input = ((TextView) findViewById(R.id.search_text)).getText().toString();
+        String input = ((TextView) findViewById(R.id.textQuery)).getText().toString();
 
         SearchDetailsBuilder searchBuilder = SearchDetailsBuilder.aSearchDetails()
                 .withMode(SearchMode.Simple)
@@ -134,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 102);
             return;
         }
-        String input = ((TextView) findViewById(R.id.search_text)).getText().toString();
+        String input = ((TextView) findViewById(R.id.textQuery)).getText().toString();
 
         SearchDetailsBuilder searchBuilder = SearchDetailsBuilder.aSearchDetails()
                 .withMode(SearchMode.Advanced)
