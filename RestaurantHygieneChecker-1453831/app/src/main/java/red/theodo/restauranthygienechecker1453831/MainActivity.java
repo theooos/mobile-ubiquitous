@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.DragEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -39,14 +42,29 @@ public class MainActivity extends AppCompatActivity {
     private boolean advanced = false;
     private RequestQueue requestQueue;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.advancedContainer).setVisibility(ConstraintLayout.GONE);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        findViewById(R.id.advancedContainer).setVisibility(ConstraintLayout.GONE);
+        ((SeekBar) findViewById(R.id.seekRadius)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                ((TextView) findViewById(R.id.viewRadiusCount)).setText(String.format("%s", i));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         populateSpinners();
     }

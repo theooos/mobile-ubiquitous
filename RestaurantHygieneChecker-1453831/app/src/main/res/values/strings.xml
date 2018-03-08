@@ -11,7 +11,7 @@
     <string name="viewRating">Minimum Rating</string>
     <string name="viewRegion">Region</string>
     <string name="viewLocalAuthority">Local Authority</string>
-    <string name="viewRadius">Miles 0\-10</string>
+    <string name="viewRadius">Miles</string>
     <string name="toggleName">Search by Name</string>
     <string name="toggleLocation">Search by Location</string>
     <string name="viewSortBy">Sort By</string>
