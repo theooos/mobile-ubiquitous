@@ -1,15 +1,25 @@
 package red.theodo.restauranthygienechecker1453831;
 
 /**
- * Created by theo on 07/03/18.
+ * Created by theo on 08/03/18.
  */
 
 final class SearchDetailsBuilder {
-    private boolean advanced;
-    private String query;
-    private String type;
-    private String rating;
-    private String localAuthority;
+    private SearchMode mode;
+    private String name;
+    private String address;
+    private String latitude;
+    private String longitude;
+    private String maxDistanceLimit;
+    private String businessTypeId;
+    private String schemeTypeKey;
+    private String ratingKey;
+    private String ratingOperatorKey;
+    private String localAuthorityId;
+    private String countryId;
+    private String sortOptionKey;
+    private String pageNumber;
+    private String pageSize;
 
     private SearchDetailsBuilder() {
     }
@@ -18,32 +28,82 @@ final class SearchDetailsBuilder {
         return new SearchDetailsBuilder();
     }
 
-    public SearchDetailsBuilder withAdvanced(boolean advanced) {
-        this.advanced = advanced;
+    public SearchDetailsBuilder withMode(SearchMode mode) {
+        this.mode = mode;
         return this;
     }
 
-    public SearchDetailsBuilder withQuery(String query) {
-        this.query = query;
+    public SearchDetailsBuilder withName(String name) {
+        this.name = name;
         return this;
     }
 
-    public SearchDetailsBuilder withType(String type) {
-        this.type = type;
+    public SearchDetailsBuilder withAddress(String address) {
+        this.address = address;
         return this;
     }
 
-    public SearchDetailsBuilder withRating(String rating) {
-        this.rating = rating;
+    public SearchDetailsBuilder withLatitude(String latitude) {
+        this.latitude = latitude;
         return this;
     }
 
-    public SearchDetailsBuilder withLocalAuthority(String localAuthority) {
-        this.localAuthority = localAuthority;
+    public SearchDetailsBuilder withLongitude(String longitude) {
+        this.longitude = longitude;
+        return this;
+    }
+
+    public SearchDetailsBuilder withMaxDistanceLimit(String maxDistanceLimit) {
+        this.maxDistanceLimit = maxDistanceLimit;
+        return this;
+    }
+
+    public SearchDetailsBuilder withBusinessTypeId(String businessTypeId) {
+        this.businessTypeId = businessTypeId;
+        return this;
+    }
+
+    public SearchDetailsBuilder withSchemeTypeKey(String schemeTypeKey) {
+        this.schemeTypeKey = schemeTypeKey;
+        return this;
+    }
+
+    public SearchDetailsBuilder withRatingKey(String ratingKey) {
+        this.ratingKey = ratingKey;
+        return this;
+    }
+
+    public SearchDetailsBuilder withRatingOperatorKey(String ratingOperatorKey) {
+        this.ratingOperatorKey = ratingOperatorKey;
+        return this;
+    }
+
+    public SearchDetailsBuilder withLocalAuthorityId(String localAuthorityId) {
+        this.localAuthorityId = localAuthorityId;
+        return this;
+    }
+
+    public SearchDetailsBuilder withCountryId(String countryId) {
+        this.countryId = countryId;
+        return this;
+    }
+
+    public SearchDetailsBuilder withSortOptionKey(String sortOptionKey) {
+        this.sortOptionKey = sortOptionKey;
+        return this;
+    }
+
+    public SearchDetailsBuilder withPageNumber(String pageNumber) {
+        this.pageNumber = pageNumber;
+        return this;
+    }
+
+    public SearchDetailsBuilder withPageSize(String pageSize) {
+        this.pageSize = pageSize;
         return this;
     }
 
     public SearchDetails build() {
-        return new SearchDetails(advanced, query, type, rating, localAuthority);
+        return new SearchDetails(mode, name, address, latitude, longitude, maxDistanceLimit, businessTypeId, schemeTypeKey, ratingKey, ratingOperatorKey, localAuthorityId, countryId, sortOptionKey, pageNumber, pageSize);
     }
 }

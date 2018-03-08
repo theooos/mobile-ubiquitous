@@ -15,4 +15,5 @@
     <string name="toggleName">Search by Name</string>
     <string name="toggleLocation">Search by Location</string>
     <string name="viewSortBy">Sort By</string>
+    <string name="loc_req_message">We need you location to find your nearest restaurants.</string>
 </resources>

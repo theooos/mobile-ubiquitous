@@ -1,8 +1,19 @@
 package red.theodo.restauranthygienechecker1453831;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.DragEvent;
 import android.view.View;
@@ -12,6 +23,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -37,15 +49,18 @@ import red.theodo.restauranthygienechecker1453831.ResponseObjects.SortByOption;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String SEARCH_STRING = "search";
-
     private boolean advanced = false;
     private RequestQueue requestQueue;
+
+    private static final int FINE_LOCATION_PERMISSION = 1;
+    private LocationManager locManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         findViewById(R.id.advancedContainer).setVisibility(ConstraintLayout.GONE);
@@ -69,19 +84,73 @@ public class MainActivity extends AppCompatActivity {
         populateSpinners();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    public void performSearch(View view) {
+        String query = ((EditText) findViewById(R.id.search_text)).getText().toString();
+
+        if (query.length() == 0) {
+            localSearch();
+        }
+        else {
+            if (advanced)
+                simpleSearch();
+            else
+                advancedSearch();
+        }
     }
 
-    public void performSearch(View view) {
-        Intent intent = new Intent(this, ResultsActivity.class);
-        String query = ((EditText)findViewById(R.id.search_text)).getText().toString();
+    private void localSearch() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+            return;
+        }
 
-        // TODO Get the search results
-//        intent.putExtra(SEARCH_STRING, searchDetails);
+        Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-        startActivity(intent);
+        SearchDetails searchDetails = SearchDetailsBuilder.aSearchDetails()
+                .withMode(SearchMode.Local)
+                .withLongitude(String.valueOf(location.getLongitude()))
+                .withLatitude(String.valueOf(location.getLatitude()))
+                .withPageSize("15")
+                .build();
+
+        Search.search(this, requestQueue, searchDetails);
+    }
+
+    private void simpleSearch(){
+
+    }
+
+    private void advancedSearch(){
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        boolean success = false;
+        for(int i = 0; i < permissions.length; i++){
+            if(permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)){
+                success = (grantResults[i] == PackageManager.PERMISSION_GRANTED);
+                break;
+            }
+        }
+
+        if(success) {
+            switch (requestCode) {
+                case 100:
+                    localSearch();
+                    break;
+                case 101:
+                    simpleSearch();
+                    break;
+                case 102:
+                    advancedSearch();
+            }
+        }
+        else{
+            Toast.makeText(this, "Location permissions required for local search.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void toggleRefinements(View view){
@@ -142,11 +211,6 @@ public class MainActivity extends AppCompatActivity {
                 newHeaders.put("x-api-version", "2");
                 return newHeaders;
             }
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                return super.getParams();
-            }
         };
         requestQueue.add(getRequest);
     }
@@ -191,11 +255,6 @@ public class MainActivity extends AppCompatActivity {
                 HashMap<String, String> newHeaders = new HashMap<>(existingHeaders);
                 newHeaders.put("x-api-version", "2");
                 return newHeaders;
-            }
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                return super.getParams();
             }
         };
         requestQueue.add(getRequest);
@@ -242,11 +301,6 @@ public class MainActivity extends AppCompatActivity {
                 HashMap<String, String> newHeaders = new HashMap<>(existingHeaders);
                 newHeaders.put("x-api-version", "2");
                 return newHeaders;
-            }
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                return super.getParams();
             }
         };
         requestQueue.add(getRequest);

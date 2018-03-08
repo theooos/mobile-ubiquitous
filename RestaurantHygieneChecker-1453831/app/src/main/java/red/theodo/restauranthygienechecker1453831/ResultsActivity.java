@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 public class ResultsActivity extends AppCompatActivity {
 
+    public static String RESULTS_STRING = "search";
+
     private TextView mTextMessage;
     FragmentManager fm = getFragmentManager();
 
@@ -52,7 +54,7 @@ public class ResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
         mTextMessage = (TextView) findViewById(R.id.message);
 
-        searchResults = performSearch();
+        searchResults = getIntent().getParcelableArrayListExtra(RESULTS_STRING);
 
         EstablishmentListFragment list = EstablishmentListFragment.newInstance(searchResults);
         fm.beginTransaction().add(R.id.listMapFragment, list).commit();

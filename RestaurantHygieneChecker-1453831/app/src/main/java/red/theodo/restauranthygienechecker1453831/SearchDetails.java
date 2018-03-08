@@ -6,23 +6,51 @@ package red.theodo.restauranthygienechecker1453831;
 
 public class SearchDetails {
 
-//    private String
+    private SearchMode mode;
+    private String name;
+    private String address;
+    private String latitude;
+    private String longitude;
+    private String maxDistanceLimit;
+    private String businessTypeId;
+    private String schemeTypeKey;
+    private String ratingKey;
+    private String ratingOperatorKey;
+    private String localAuthorityId;
+    private String countryId;
+    private String sortOptionKey;
+    private String pageNumber;
+    private String pageSize;
 
-    private boolean advanced;
-    private String query;
-    private String type;
-    private String rating;
-    private String localAuthority;
-
-    public SearchDetails(boolean advanced, String query, String type, String rating, String localAuthority) {
-        this.advanced = advanced;
-        this.query = query;
-        this.type = type;
-        this.rating = rating;
-        this.localAuthority = localAuthority;
+    public SearchDetails(SearchMode mode, String name, String address, String latitude, String longitude, String maxDistanceLimit, String businessTypeId, String schemeTypeKey, String ratingKey, String ratingOperatorKey, String localAuthorityId, String countryId, String sortOptionKey, String pageNumber, String pageSize) {
+        this.mode = mode;
+        this.name = name;
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.maxDistanceLimit = maxDistanceLimit;
+        this.businessTypeId = businessTypeId;
+        this.schemeTypeKey = schemeTypeKey;
+        this.ratingKey = ratingKey;
+        this.ratingOperatorKey = ratingOperatorKey;
+        this.localAuthorityId = localAuthorityId;
+        this.countryId = countryId;
+        this.sortOptionKey = sortOptionKey;
+        this.pageNumber = pageNumber;
+        this.pageSize = pageSize;
     }
 
     public String generateUrl(){
-        return "";
+        StringBuilder builder = new StringBuilder();
+        builder.append("http://api.ratings.food.gov.uk/Establishments?");
+
+        switch (mode){
+            case Local:
+                builder.append(String.format("longitude=%s&", longitude));
+                builder.append(String.format("latitude=%s&", latitude));
+                builder.append(String.format("pageSize=%s&", pageSize));
+        }
+
+        return builder.toString();
     }
 }
