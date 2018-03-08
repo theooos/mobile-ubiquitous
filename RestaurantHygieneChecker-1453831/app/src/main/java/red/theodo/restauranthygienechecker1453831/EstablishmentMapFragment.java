@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by theo on 07/03/18.
  */
 
-public class EstablishmentMapFragment extends MapFragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class EstablishmentMapFragment extends MapFragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private static final String ARG_PARAM1 = "param1";
 
@@ -52,13 +52,13 @@ public class EstablishmentMapFragment extends MapFragment implements OnMapReadyC
         for (Establishment establishment : searchResults) {
             MarkerOptions markerOptions = new MarkerOptions()
                     .position(new LatLng(establishment.getLatitude(), establishment.getLongitude()))
-                    .title(searchResults.get(0).getName());
+                    .title(establishment.getName());
 
             Marker marker = googleMap.addMarker(markerOptions);
             marker.setTag(establishment);
         }
 
-        googleMap.setOnMarkerClickListener(this);
+        googleMap.setOnInfoWindowClickListener(this);
         if (searchResults.size() > 0) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(
                     searchResults.get(0).getLatitude(),
@@ -71,12 +71,10 @@ public class EstablishmentMapFragment extends MapFragment implements OnMapReadyC
     // **** GoogleMap.OnMarkerClickListener implementation ****
 
     @Override
-    public boolean onMarkerClick(Marker marker) {
+    public void onInfoWindowClick(Marker marker) {
         Establishment establishment = (Establishment) marker.getTag();
         Intent intent = new Intent(getActivity(), DetailsActivity.class);
         intent.putExtra(DetailsActivity.ESTABLISHMENT_KEY, establishment);
         startActivity(intent);
-        return false;
     }
-
 }

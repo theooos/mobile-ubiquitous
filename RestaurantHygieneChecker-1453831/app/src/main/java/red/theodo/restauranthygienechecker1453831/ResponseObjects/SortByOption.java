@@ -10,6 +10,9 @@ public class SortByOption {
     private int id;
 
     public SortByOption(String name, String key, int id) {
+        // API error rectification
+        if(key.equals("Distance")) key = "distance";
+
         this.name = name;
         this.key = key;
         this.id = id;

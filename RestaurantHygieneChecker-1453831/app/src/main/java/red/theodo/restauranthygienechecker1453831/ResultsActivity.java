@@ -59,19 +59,4 @@ public class ResultsActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    // TODO
-    private MapFragment generateMap() {
-        MapFragment map = MapFragment.newInstance();
-        map.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                LatLng roosters = new LatLng(searchResults.get(0).getLatitude(), searchResults.get(0).getLongitude());
-                MarkerOptions marker = new MarkerOptions().position(roosters).title(searchResults.get(0).getName());
-                googleMap.addMarker(marker);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(roosters));
-            }
-        });
-        return map;
-    }
-
 }

@@ -57,15 +57,21 @@
         app:layout_constraintStart_toStartOf="@+id/detailsBusinessType"
         app:layout_constraintTop_toBottomOf="@+id/detailsAuthority" />
 
-    <com.google.android.gms.maps.MapView
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/detailsMapView"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="200dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsAuthorityEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/detailsAuthorityEmail"
+        tools:context=".MapsActivity" />
 
     <TextView
         android:id="@+id/detailsLongLat"
@@ -76,7 +82,7 @@
         android:text="TextView"
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsMapView" />
+        app:layout_constraintTop_toBottomOf="@id/detailsMapView" />
 
     <RatingBar
         android:id="@+id/detailsRatingBar"

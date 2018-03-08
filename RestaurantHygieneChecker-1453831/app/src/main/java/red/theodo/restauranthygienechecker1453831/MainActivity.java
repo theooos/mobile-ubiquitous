@@ -80,8 +80,39 @@ public class MainActivity extends AppCompatActivity {
                     radius.setChecked(false);
                     radius.setEnabled(false);
                 }
+                return true;
+            }
+        });
 
-                return false;
+        ((Spinner) findViewById(R.id.spinnerSortBy)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((CheckBox) findViewById(R.id.checkSortBy)).setChecked(true);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        ((Spinner) findViewById(R.id.spinnerBusinessType)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((CheckBox) findViewById(R.id.checkBusinessType)).setChecked(true);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        // To check the box if a star is selected.
+        ((RatingBar) findViewById(R.id.ratingBar)).setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                ((CheckBox) findViewById(R.id.checkRating)).setChecked(true);
             }
         });
 
@@ -103,11 +134,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // To check the box if a star is selected.
-        ((RatingBar) findViewById(R.id.ratingBar)).setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        ((Spinner) findViewById(R.id.spinnerLocalAuthority)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                ((CheckBox) findViewById(R.id.checkRating)).setChecked(true);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((CheckBox) findViewById(R.id.checkRegion)).setChecked(true);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -120,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                ((CheckBox) findViewById(R.id.checkRadius)).setChecked(true);
             }
 
             @Override
