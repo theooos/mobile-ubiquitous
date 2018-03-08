@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        populateSpinners();
     }
 
     public void performSearch(View view) {
